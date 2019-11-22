@@ -1,0 +1,14 @@
+- name: Add user vagrant to docker group
+  user:
+    name: "{{ docker_user }}"
+    group: docker
+
+- name: Start Docker Engine
+  service:
+    name: docker
+    state: started
+    enabled: true
+
+- name: Add docker jenkins system
+  shell:
+    cmd: "docker run -d -p 8787:8080 jenkins/jenkins"

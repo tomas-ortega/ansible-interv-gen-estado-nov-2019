@@ -1,0 +1,6 @@
+- name: Install docker engine
+  package:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - docker-ce

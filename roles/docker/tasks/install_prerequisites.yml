@@ -1,0 +1,13 @@
+- name: Install PreRequisites (Ubuntu)
+  package:
+    name: "{{ item }}"
+    state: latest
+  loop: "{{ docker_base_software_ubuntu }}"
+  when: ansible_distribution == "Ubuntu"
+
+- name: Install PreRequisites (CentOS)
+  package:
+    name: "{{ item }}"
+    state: latest
+  loop: "{{ docker_base_software_centos }}"
+  when: ansible_distribution == "CentOS"

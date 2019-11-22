@@ -1,0 +1,11 @@
+- name: Add docker gpg key (Ubuntu)
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+  when: ansible_distribution == "Ubuntu"
+
+- name: Add docker gpg key (CentOS)
+  rpm_key:
+    key: https://download.docker.com/linux/centos/gpg
+    state: present
+  when: ansible_distribution == "CentOS"

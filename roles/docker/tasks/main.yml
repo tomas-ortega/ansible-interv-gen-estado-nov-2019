@@ -1,0 +1,6 @@
+---
+- import_tasks: install_prerequisites.yml
+- import_tasks: import_gpg_key.yml
+- import_tasks: add_docker_repository.yml
+- import_tasks: install_docker_ce.yml
+- import_tasks: add_user_to_docker_group.yml

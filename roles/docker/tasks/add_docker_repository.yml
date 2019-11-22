@@ -1,0 +1,15 @@
+- name: Add docker repository (Ubuntu)
+  apt_repository:
+    repo: deb https://download.docker.com/linux/ubuntu bionic stable
+    state: present
+  when: ansible_distribution == "Ubuntu"
+
+- name: Add docker repository (CentOS)
+  yum_repository:
+    name: docker
+    description: Repository for Docker CE
+    baseurl: 'https://download.docker.com/linux/centos/7/$basearch/stable'
+    gpgcheck: yes
+    gpgkey: https://download.docker.com/linux/centos/gpg
+    enabled: yes
+  when: ansible_distribution == "CentOS"

@@ -1,0 +1,17 @@
+---
+# Add initial software pre-docker (Ubuntu)
+docker_base_software_ubuntu:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - gnupg-agent
+  - software-properties-common
+
+# Add initial software pre-docker (Centos)
+docker_base_software_centos:
+  - yum-utils
+  - device-mapper-persistent-data
+  - lvm2
+
+# Variable to set user
+docker_user: vagrant

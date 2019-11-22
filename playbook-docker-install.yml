@@ -1,0 +1,37 @@
+---
+- hosts: linuxmachines
+  become: true
+  vars:
+    # The XKB keyboard model name.
+    keyboard_model: pc104
+    # The XKB keyboard layout name.
+    keyboard_layout: es
+    # The XKB keyboard variant components.
+    keyboard_variant: ''
+    # The XKB keyboard option components.
+    keyboard_options: ''
+    # The behavior of <BackSpace> and <Delete> keys.
+    keyboard_backspace: guess
+    docker_install_user: ansible
+  pre_tasks:
+    - name: Install keyboard configuration
+      package:
+        name: keyboard-configuration
+        state: present
+      when: ansible_distribution == "Ubuntu"
+    - name: Write keyboard configration
+      template:
+        src: keyboard.j2
+        dest: /etc/default/keyboard
+        force: yes
+        owner: root
+        group: root
+        mode: 'u=rw,go=r'
+      when: ansible_distribution == "Ubuntu"
+    - name: Dpkg reconfigure Keyboard
+      command: /usr/sbin/dpkg-reconfigure -f noninteractive keyboard-configuration
+      when: ansible_distribution == "Ubuntu"
+  roles:
+    - role: docker
+      vars:
+        docker_user: "{{ docker_install_user }}"

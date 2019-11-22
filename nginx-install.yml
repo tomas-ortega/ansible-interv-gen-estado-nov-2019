@@ -1,0 +1,24 @@
+- name: Stop apache service
+  hosts: linuxmachines
+  become: true
+  tasks:
+    - name: Stop Apache
+      service:
+        name: httpd
+        state: stopped
+
+- name: Install nginx in production
+  #strategy: debug
+  hosts: linuxmachines
+  become: true
+  #vars:
+  #  myvar: value1
+  pre_tasks:
+    - name: Invoker Debug
+      ping: 
+        data={{ wrong_var }}
+  roles:
+    - role: geerlingguy.nginx
+      vars:
+        nginx_error_log: "/home/ansible/error.log warn"
+        nginx_access_log: "/home/ansible/access.log main buffer=16k flush=2m"
